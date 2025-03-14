@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap');
+
+* {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+
+.login-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-img img {
+  width: 100%;
+  max-width: 580px; 
+  margin-bottom: 100px;
+  margin-right: 40px;
+  height: auto; 
+}
+
+.login-form {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  margin-right: 80px;
+  margin-bottom: 100px;
+  max-width: 380px;
+  border-radius: 8px;
+  text-align: left;
+}
+.logo {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 100px; 
+  margin: 0 auto 20px;
+}
+
+.logo img {
+  max-width: 100%;
+  height: auto; 
+  object-fit: contain;
+  margin-right: 150px;
+  margin-top: 60px;
+}
+
+.login-form h2 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.login-form p {
+  color: gray;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  max-width: 350px;
+}
+
+.login-form label {
+  font-weight: bold;
+  margin: 10px 0 5px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: 2px solid transparent; 
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  flex: 1;
+  padding-right: 40px; 
+}
+
+.toggle-password {
+  position: absolute;
+  right: 0px;
+  bottom: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+  outline: none; /* Menghilangkan stroke saat diklik */
+}
+
+.toggle-password:hover {
+  color: #000;
+}
+
+.toggle-password:focus {
+  outline: none; 
+  box-shadow: none;
+}
+
+.forgot-password {
+  position: relative;
+  top: -12px;
+  text-align: right;
+}
+
+.forgot-password a {
+  color: #008BCC;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.login-button {
+  background-color: #008BCC;
+  width: 100%;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.register-link {
+  margin-top: 15px;
+  text-align: center;
+
+}
+
+.register-link a {
+  color: #007bff;
+  text-decoration: none;
+}
