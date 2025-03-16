@@ -3,6 +3,7 @@ import Sidebar from "./sidebar";
 import Navbar from "./navbar";
 import "./transaksi.css";
 import productImage from "../assets/tictac.jpeg";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   id: number;
@@ -18,46 +19,63 @@ interface CartItem extends Product {
 interface QuantityMap {
   [key: number]: number;
 }
+const categories = ["Semua Menu", "Makanan", "Minuman", "Alat Tulis", "Perlengkapan Sekolah"];
 
 const Transaksi: React.FC = () => {
+  const navigate = useNavigate();
+  const [activeCategory, setActiveCategory] = useState("Semua Menu");
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [selectedPayment, setSelectedPayment] = useState<string | null>(null); 
   const [quantities, setQuantities] = useState<QuantityMap>({});
+
+  const togglePaymentMethod = (method: string) => {
+    setSelectedPayment(selectedPayment === method ? null : method);
+  };
+
+  const setCartAndSave = (newCart: CartItem[]) => {
+    setCart(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
+  };
 
   const addToCart = (product: Product): void => {
     const existingItem = cart.find((item) => item.id === product.id);
+    let newCart;
+
     if (existingItem) {
-      setCart(cart.map((item) => (item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item)));
+      newCart = cart.map((item) => (item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item));
     } else {
-      setCart([...cart, { ...product, quantity: 1 }]);
+      newCart = [...cart, { ...product, quantity: 1 }];
     }
 
-    setQuantities({
-      ...quantities,
-      [product.id]: (quantities[product.id] || 0) + 1,
-    });
+    setCartAndSave(newCart);
+    setQuantities({ ...quantities, [product.id]: (quantities[product.id] || 0) + 1 });
   };
 
   const removeFromCart = (product: Product): void => {
+    let newCart;
+
     if (quantities[product.id] > 1) {
-      setCart(cart.map((item) => (item.id === product.id ? { ...item, quantity: item.quantity - 1 } : item)));
-      setQuantities({
-        ...quantities,
-        [product.id]: quantities[product.id] - 1,
-      });
+      newCart = cart.map((item) => (item.id === product.id ? { ...item, quantity: item.quantity - 1 } : item));
+      setQuantities({ ...quantities, [product.id]: quantities[product.id] - 1 });
     } else {
-      setCart(cart.filter((item) => item.id !== product.id));
+      newCart = cart.filter((item) => item.id !== product.id);
       const newQuantities = { ...quantities };
       delete newQuantities[product.id];
       setQuantities(newQuantities);
     }
+
+    setCartAndSave(newCart);
   };
 
   const deleteFromCart = (productId: number): void => {
-    setCart(cart.filter((item) => item.id !== productId));
+    const newCart = cart.filter((item) => item.id !== productId);
     const newQuantities = { ...quantities };
     delete newQuantities[productId];
+
+    setCartAndSave(newCart);
     setQuantities(newQuantities);
   };
+
 
   const products: Product[] = Array(12)
     .fill(null)
@@ -71,21 +89,30 @@ const Transaksi: React.FC = () => {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
+  const handleCheckout = () => {
+    if (!selectedPayment) {
+      alert("Silakan pilih metode pembayaran terlebih dahulu!");
+      return;
+    }
+
+    if (selectedPayment === "Tunai") {
+      navigate("/checkout");
+    } else if (selectedPayment === "Qris") {
+      navigate("/pembayaran-qris");
+    }
+  };
+  
+
   return (
     <div className="transaksi-container">
       <Sidebar />
       <Navbar />
       <div className="transaksi-content">
         <div className="kategori">
-          <button className="active">
-            <i className="bx bx-category"></i>
-            <span>Semua Menu</span>
-            <small>100 item</small>
-          </button>
-          {[...Array(4)].map((_, index) => (
-            <button key={index}>
-              <i className="bx bx-dish"></i>
-              <span>Title</span>
+          {categories.map((category, index) => (
+            <button key={index} className={activeCategory === category ? "active" : ""} onClick={() => setActiveCategory(category)}>
+              <i className="bx bx-category"></i>
+              <span>{category}</span>
             </button>
           ))}
         </div>
@@ -184,21 +211,17 @@ const Transaksi: React.FC = () => {
 
         <h3>Metode Pembayaran</h3>
         <div className="metode-pembayaran">
-          <button className={cart.length > 0 ? "active" : "disabled"}>
+          <button className={selectedPayment === "Tunai" ? "active" : ""} onClick={() => togglePaymentMethod("Tunai")}>
             <i className="bx bx-money"></i> Tunai
           </button>
-          <button className={cart.length > 0 ? "active" : "disabled"}>
+          <button className={selectedPayment === "Qris" ? "active" : ""} onClick={() => togglePaymentMethod("Qris")}>
             <i className="bx bx-qr"></i> Qris
           </button>
         </div>
 
-        <button className={`checkout-btn ${cart.length > 0 ? "active" : "disabled"}`}>Rp{total.toLocaleString()}</button>
-
-        {cart.length > 0 && (
-          <button className="batal-btn">
-            <i className="bx bx-x"></i> Batal Pilih ({totalItems})
-          </button>
-        )}
+        <button className={`checkout-btn ${cart.length > 0 ? "active" : "disabled"}`} onClick={handleCheckout}>
+          Rp{total.toLocaleString()}
+        </button>
       </div>
     </div>
   );

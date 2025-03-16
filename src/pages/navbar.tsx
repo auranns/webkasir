@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./navbar.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FaCalendarAlt, FaClock } from "react-icons/fa";
+import { FaCalendarAlt, FaClock, FaChevronDown } from "react-icons/fa";
 
 const Navbar = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
@@ -23,7 +23,8 @@ const Navbar = () => {
       </div>
       <div className="user-profile">
         <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="User" />
-        <span>Kasir ▼</span>
+        <span>Kasir</span>
+        <FaChevronDown className="icon-dropdown" />
       </div>
     </div>
   );

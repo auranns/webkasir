@@ -5,6 +5,7 @@ import RegisterPage from "./pages/register";
 import SidebarPage from "./pages/sidebar";
 import TransaksiPage from "./pages/transaksi";
 import NavbarPage from "./pages/navbar";
+import CheckoutPage from "./pages/chekout";
 
 function App() {
 
@@ -16,7 +17,8 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/transaksi" element={<TransaksiPage />} />
         <Route path="/navbar" element={<NavbarPage />} />
-        <Route path="*" element={<LoginPage />} /> {/* Default ke Login */}
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="*" element={<LoginPage />} /> 
       </Routes>
     </Router>
   );

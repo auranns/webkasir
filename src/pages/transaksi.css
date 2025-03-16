@@ -34,6 +34,7 @@
   font-weight: bold;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  outline: none;
 }
 
 .kategori button.active {
@@ -343,6 +344,10 @@
   border-top: 1px solid #eee;
 }
 
+.metode-pembayaran button i {
+  font-size: 18px;
+}
+
 .metode-pembayaran {
   display: flex;
   gap: 10px;
@@ -363,21 +368,12 @@
   justify-content: center;
   gap: 5px;
   transition: 0.3s;
+  outline: none;
 }
 
-.metode-pembayaran button.active:hover {
+.metode-pembayaran button.active {
   background: #007bff;
   color: white;
-}
-
-.metode-pembayaran button.disabled {
-  border-color: #ddd;
-  color: #aaa;
-  cursor: not-allowed;
-}
-
-.metode-pembayaran button i {
-  font-size: 18px;
 }
 
 .checkout-btn {
@@ -386,7 +382,6 @@
   width: 100%;
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 15px;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -394,40 +389,8 @@
 .checkout-btn.active {
   background: #007bff;
   color: white;
-  border: none;
 }
 
-.checkout-btn.disabled {
-  background: #eee;
-  color: #aaa;
-  border: none;
-  cursor: not-allowed;
-}
-
-.batal-btn {
-  padding: 12px;
-  border-radius: 8px;
-  width: 100%;
-  background: #fff;
-  border: 1px solid #ff6b6b;
-  color: #ff6b6b;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  transition: 0.3s;
-}
-
-.batal-btn:hover {
-  background: #ff6b6b;
-  color: white;
-}
-
-.batal-btn i {
-  font-size: 18px;
-}
 
 /* Responsive Styles */
 @media (max-width: 1200px) {

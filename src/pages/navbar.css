@@ -2,7 +2,7 @@
   width: 60%;
   position: fixed;
   top: 0;
-  left: 100px;
+  left: 80px;
   background: white;
   padding: 15px 20px;
   display: flex;
@@ -46,8 +46,14 @@
 .user-profile {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px; 
 }
+
+.icon-dropdown {
+  font-size: 14px;
+  cursor: pointer;
+}
+
 
 .user-profile img {
   width: 32px;
